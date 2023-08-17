@@ -11,8 +11,20 @@ export const Editor: React.FC<IJournalProps> = () => {
   const { register, handleSubmit } = useForm();
   const ref = React.useRef<EditorJS | null>(null);
   const titleRef = React.useRef<HTMLTextAreaElement>(null);
-  const {user} = JSON.parse(Cookies.get('user'))
-  console.log(user)
+  const { user } = JSON.parse(Cookies.get('user'))
+
+  function couldBeCounted(block) {
+    return 'text' in block.data // it depends on tools you use
+  }
+
+  function getBlocksTextLen(blocks) {
+    return blocks
+      .filter(couldBeCounted)
+      .reduce((sum, block) => {
+        sum += block.data.text.length
+        return sum
+      }, 0)
+  }
 
   const initializeEditor = useCallback(async () => {
     const EditorJS = (await import('@editorjs/editorjs')).default;
@@ -23,6 +35,41 @@ export const Editor: React.FC<IJournalProps> = () => {
 
     if (!ref.current) {
       const editor = new EditorJS({
+        onChange: async (api, event: any) => {
+          function couldBeCounted(block) {
+            return 'text' in block.data // it depends on tools you use
+          }
+
+          function getBlocksTextLen(blocks) {
+            return blocks
+              .filter(couldBeCounted)
+              .reduce((sum, block) => {
+                sum += block.data.text.length
+
+                return sum
+              }, 0)
+          }
+          const limit = 500
+          const content = await api.saver.save()
+          const contentLen = getBlocksTextLen(content.blocks)
+
+          if (contentLen <= limit) {
+            return
+          }
+          const workingBlock = event.detail.target
+          const workingBlockIndex = event.detail.index
+          const workingBlockSaved = content.blocks.filter(block => block.id === workingBlock.id).pop()
+          const otherBlocks = content.blocks.filter(block => block.id !== workingBlock.id)
+          const otherBlocksLen = getBlocksTextLen(otherBlocks)
+          const workingBlockLimit = limit - otherBlocksLen
+
+          api.blocks.update(workingBlock.id, {
+            text: workingBlockSaved.data.text.substr(0, workingBlockLimit)
+          })
+
+          api.caret.setToBlock(workingBlockIndex, 'end')
+
+        },
         holder: 'editor',
         onReady: () => { ref.current = editor; },
         placeholder: 'Start writing your journal entry here...',
@@ -86,7 +133,7 @@ export const Editor: React.FC<IJournalProps> = () => {
             <kbd className='rounded-md border bg-muted px-1 text-xs uppercase'>
               Tab
             </kbd>{' '}
-            to open the command menu.
+            to open the command menu. Remember, 500 characters only
           </p>
         </div>
         <button className="mt-20 ml-10 bg-[#FCDAAB] hover:bg-[#FF494A] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
