@@ -1,5 +1,5 @@
 import EditorJS from "@editorjs/editorjs";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import TextareaAutosize from "react-textarea-autosize";
 import { useJournalEntries } from "../hooks/useJournal";
@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 interface IJournalProps { }
 
 export const Editor: React.FC<IJournalProps> = () => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit } = useForm();
   const ref = React.useRef<EditorJS | null>(null);
   const titleRef = React.useRef<HTMLTextAreaElement>(null);
   const {user} = JSON.parse(Cookies.get('user'))

@@ -5,11 +5,13 @@ import NavBar from './components/navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Entry from './pages/Entry';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <Router>
       <div className='p-4'>
+        <Toaster />
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />

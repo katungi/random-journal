@@ -1,11 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSignIn } from "../hooks/useSignIn";
 
-type Inputs = {
-  email: string;
-  password: string;
-}
-
 export default function Login() {
   const signIn = useSignIn();
   const { register, handleSubmit, formState: { errors } } = useForm();

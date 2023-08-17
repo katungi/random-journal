@@ -52,11 +52,31 @@ export async function getJotById(
     console.log('Jot::', req.params.id);
     const journal = await db.journal.findUnique({
       where: {
-        id: Number(req.params.id),
+        id: parseInt(req.params.id),
       },
     });
     console.log(journal);
     res.status(200).json(journal);
+  } catch (e) {
+    error(res, 500, e.message);
+  }
+}
+
+
+export async function getJotsByUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    console.log('Jot::', req.params.id);
+    const journals = await db.journal.findMany({
+      where: {
+        userId: parseInt(req.params.id),
+      },
+    });
+    console.log(journals);
+    res.status(200).json(journals);
   } catch (e) {
     error(res, 500, e.message);
   }

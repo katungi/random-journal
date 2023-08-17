@@ -1,7 +1,7 @@
 import { UseMutateFunction, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { User } from "./useUser";
 import { useNavigate } from "react-router-dom";
 import { QUERY_KEY } from "../utils/queryKey";
+import { toast } from "react-hot-toast";
 
 export type JournalEntry = {
   id: number;
@@ -42,7 +42,11 @@ export type IJournal = UseMutateFunction<JournalEntry, unknown, any, unknown>
 export function useJournalEntries() {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
-  const { mutate: createJournalMutation } = useMutation<JournalEntry, unknown, any, unknown>((payload) => createJournalEntry(payload), {
+  const { mutate: createJournalMutation } = useMutation<JournalEntry, unknown, any, unknown>((payload) => toast.promise(createJournalEntry(payload), {
+    loading: 'Creating Journal...',
+    success: <b>Journal saved!</b>,
+    error: <b>Could not created.</b>,
+  }), {
     onSuccess: (data) => {
       queryClient.setQueryData([QUERY_KEY.journal], data)
       navigate('/')

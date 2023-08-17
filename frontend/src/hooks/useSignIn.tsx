@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { QUERY_KEY } from "../utils/queryKey";
 import Cookies from 'js-cookie'
 import { IUserResponse, useUserStore } from "../store/store";
+import { toast } from "react-hot-toast";
 
 async function signIn(payload: any): Promise<User> {
   const response = await fetch(
@@ -30,7 +31,11 @@ export function useSignIn(): ISignIn {
   const navigate = useNavigate()
   const setUser = useUserStore(state => state.setUser)
 
-  const { mutate: signInMutation } = useMutation<User, unknown, { email: string; password: string; token: string; }, unknown>(({ email, password, token }) => signIn({ email, password, token }), {
+  const { mutate: signInMutation } = useMutation<User, unknown, { email: string; password: string; token: string; }, unknown>(({ email, password, token }) => toast.promise(signIn({ email, password, token }), {
+    loading: 'Logging In...',
+    success: <b>Logged In 🎉</b>,
+    error: <b>Error Logging you in.</b>,
+  }), {
     onSuccess: (data) => {
       queryClient.setQueryData([QUERY_KEY.user], data)
       setUser(data as IUserResponse)
