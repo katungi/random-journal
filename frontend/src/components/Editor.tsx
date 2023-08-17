@@ -13,19 +13,6 @@ export const Editor: React.FC<IJournalProps> = () => {
   const titleRef = React.useRef<HTMLTextAreaElement>(null);
   const { user } = JSON.parse(Cookies.get('user'))
 
-  function couldBeCounted(block) {
-    return 'text' in block.data // it depends on tools you use
-  }
-
-  function getBlocksTextLen(blocks) {
-    return blocks
-      .filter(couldBeCounted)
-      .reduce((sum, block) => {
-        sum += block.data.text.length
-        return sum
-      }, 0)
-  }
-
   const initializeEditor = useCallback(async () => {
     const EditorJS = (await import('@editorjs/editorjs')).default;
     const Header = (await import('@editorjs/header')).default;
