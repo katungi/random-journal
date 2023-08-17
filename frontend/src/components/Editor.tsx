@@ -97,7 +97,6 @@ export const Editor: React.FC<IJournalProps> = () => {
       content: blocks,
       user: user.id
     }
-    console.log(payload);
     createJournalMutation(payload);
   }
 

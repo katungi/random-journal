@@ -52,7 +52,6 @@ export function useSignIn(): ISignIn {
 
 export function redirectIfNotAuthenticated() {
   const cookie = Cookies.get('token')
-  console.log("found cookie", cookie)
   if (!cookie) {
     window.location.href = '/login'
   }

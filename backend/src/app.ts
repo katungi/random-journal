@@ -17,15 +17,21 @@ app.use(cors());
 app.use(UserRoutes);
 app.use(JournalRoutes);
 
-cron.schedule('0 12 * * *', async () => {
-  console.log('[CRON]: Running the journal distribution task...');
-  try {
-    await distributeJournals();
-    console.log('[CRON]: Successfully distributed the journals.');
-  } catch (error) {
-    console.error('[CRON]: Error in distributing journals:', error);
+cron.schedule(
+  '0 12 * * *',
+  async () => {
+    console.log('[CRON]: Running the journal distribution task...');
+    try {
+      await distributeJournals();
+      console.log('[CRON]: Successfully distributed the journals.');
+    } catch (error) {
+      console.error('[CRON]: Error in distributing journals:', error);
+    }
+  },
+  {
+    timezone: 'Africa/Nairobi',
   }
-});
+);
 
 const port = process.env.PORT || 8000;
 

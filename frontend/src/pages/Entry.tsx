@@ -7,7 +7,6 @@ export default function Entry() {
   const [executing, setExecuting] = useState(false)
   const [content, setContent] = useState(null)
   const entryID = useParams().id
-  console.log('Id::', entryID)
 
   async function fetchEntry() {
     setExecuting(true)
@@ -19,7 +18,6 @@ export default function Entry() {
       }
     )
     if (response.ok) {
-      console.log('Response::', response)
       const data = await response.json()
 
       const content = {
@@ -32,7 +30,6 @@ export default function Entry() {
   }
 
   useEffect(() => {
-    console.log('Fetching entry...')
     fetchEntry()
   }, [])
 

@@ -5,7 +5,6 @@ export default function Login() {
   const signIn = useSignIn();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit: SubmitHandler<any> = data => {
-    console.log(data)
     if(data.email && data.password) {
       signIn(data);
     }
