@@ -8,7 +8,7 @@ export default defineConfig(({ command, mode }) => {
   return {
     define: {
       'process.env': process.env,
-      ENV_KEY: process.env.VITE_REACT_URL,
+      VITE_REACT_URL: process.env.VITE_REACT_URL,
     },
     plugins: [reactRefresh()],
   };
