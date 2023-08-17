@@ -12,7 +12,7 @@ type IUserPayload = {
 }
 
 async function register(payload: IUserPayload) {
-  const response = await fetch(`${process.env.VITE_REACT_URL}/api/auth/register`, {
+  const response = await fetch(`${import.meta.env}/api/auth/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)

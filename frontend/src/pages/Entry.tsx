@@ -12,7 +12,7 @@ export default function Entry() {
   async function fetchEntry() {
     setExecuting(true)
     const response = await fetch(
-      `${process.env.VITE_REACT_URL}/api/jot/${entryID}`,
+      `${import.meta.env}/api/jot/${entryID}`,
       {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },

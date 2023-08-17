@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 
 async function signIn(payload: any): Promise<User> {
   const response = await fetch(
-    `${process.env.VITE_REACT_URL}/api/auth/login`,
+    `${import.meta.env}/api/auth/login`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
