@@ -4,6 +4,7 @@ import Jot from './pages/Jot';
 import NavBar from './components/navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Entry from './pages/Entry';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
           <Route path="/jot" element={<Jot />} />
           <Route path="/login" element={<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/jot/:id' element={<Jot />} />
+          <Route path='/jots/:id' element={<Entry />} />
         </Routes>
       </div>
     </Router>

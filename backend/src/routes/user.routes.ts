@@ -9,8 +9,6 @@ router.post('/api/auth/login', login);
 
 router.get('/api/auth/autologin', autoLogin);
 
-router.get('/api/auth/logout', (req, res) => {
-  console.log('logout');
-});
+router.get('/api/auth/logout', (req, res) => {});
 
 export default router;

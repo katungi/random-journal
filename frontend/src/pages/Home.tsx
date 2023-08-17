@@ -13,9 +13,9 @@ export default function Home() {
       <h1>Your Journal Entries</h1>
       {isLoading && <p>Loading...</p>}
       {!isLoading && journalEntries && journalEntries.map((entry) => (
-        <div key={entry.id}>
+        <a key={entry.id} href={`/jots/${entry.id}`}>
           <h2>{entry.title}</h2>
-        </div>
+        </a>
       ))}
     </div>
   )

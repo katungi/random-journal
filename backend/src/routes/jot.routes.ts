@@ -1,12 +1,19 @@
-import express from 'express'
-import { createJot, getJots, getJotById } from '../controller/jot.controller'
+import express from 'express';
+import {
+  createJot,
+  getJots,
+  getJotById,
+  distributeJournals,
+} from '../controller/jot.controller';
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/api/jot', createJot)
+router.post('/api/jot', createJot);
 
-router.post('/api/jot/:id', getJotById)
+router.get('/api/jot/:id', getJotById);
 
-router.get('/api/jot', getJots)
+router.get('/api/jot', getJots);
 
-export default router
+router.get('/api/random', distributeJournals);
+
+export default router;

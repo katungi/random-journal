@@ -57,5 +57,6 @@ export function useJournalEntries() {
       queryClient.setQueryData([QUERY_KEY.journal], data)
     }
   })
+
   return { createJournalMutation, isLoading, journalEntries }
 }
