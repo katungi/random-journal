@@ -12,7 +12,7 @@ export type JournalEntry = {
 }
 export async function fetchJournalEntries() {
   const response = await fetch(
-    `${import.meta.env}/api/jot`,
+    `${import.meta.env.VITE_REACT_URL}/api/jot`,
     {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
@@ -24,7 +24,7 @@ export async function fetchJournalEntries() {
 
 export async function createJournalEntry(payload: any) {
   const response = await fetch(
-    `${import.meta.env}/api/jot`,
+    `${import.meta.env.VITE_REACT_URL}/api/jot`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

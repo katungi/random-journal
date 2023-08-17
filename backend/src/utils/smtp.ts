@@ -35,7 +35,7 @@ export async function distributeJournalEntries({
       to: identifier,
       subject: 'Your Random Journal Entry',
       html: emailTemplate({
-        base_url: 'http://127.0.0.1:5173',
+        base_url: 'https://random-journal.onrender.com',
         signin_url: url,
         email: identifier,
       }),

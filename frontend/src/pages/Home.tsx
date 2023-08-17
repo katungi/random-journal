@@ -11,7 +11,7 @@ export default function Home() {
   async function fetchJournalEntry(id: string) {
     setIsLoading(true)
     const response = await fetch(
-      `${import.meta.env}/api/jot/user/${id}`,
+      `${import.meta.env.VITE_REACT_URL}/api/jot/user/${id}`,
       {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
