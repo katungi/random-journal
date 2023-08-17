@@ -3,9 +3,9 @@ import bcrypt from 'bcrypt';
 
 export async function generateAuthToken(id: number | undefined) {
   const payload: string = `${Date.now()}-${id}`;
-  const secret: Secret =
-    process.env.JWT_SECRET || 'ihaveasecretnumbercountingdownfrom1to256@haha';
-  return jwt.sign(payload, secret);
+  const secret: Secret = process.env.JWT_SECRET || 'secret' + Math.random().toString();
+  const token = jwt.sign(payload, secret);
+  return token;
 }
 
 export async function hashPassword(password: string) {
@@ -14,5 +14,5 @@ export async function hashPassword(password: string) {
 }
 
 export async function verifyPassword(password: string, hash: string) {
-  return bcrypt.compare(password, hash );
+  return bcrypt.compare(password, hash);
 }

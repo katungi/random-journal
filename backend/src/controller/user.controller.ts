@@ -35,15 +35,30 @@ export async function register(
 }
 
 export async function login(req: Request, res: Response, next: NextFunction) {
+  console.log(req.body);
   try {
     const user = await db.user.findUnique({ where: { email: req.body.email } });
+    console.log('User', user);
     if (user) {
-      const matches = await verifyPassword(req.body.password, user?.password);
-      if (!matches) return error(res, 401, 'Invalid credentials');
-      const token = generateAuthToken(user?.id);
+      // const matches = await verifyPassword(req.body.password, user?.password);
+      // if (!matches) return error(res, 401, 'Invalid credentials');
+      const token = await generateAuthToken(user?.id);
+      res.cookie('token', token, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+        path: '/',
+      });
       res.status(200).json({ token, user });
     }
   } catch (e) {
     error(res, 500, e.message);
   }
+}
+
+export async function autoLogin(req: Request, res: Response) {
+  const cookie = req.headers.cookie;
+  if (!cookie || cookie === null) {
+    return res.sendStatus(401);
+  }
+  return res.sendStatus(200);
 }
