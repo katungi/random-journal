@@ -13,6 +13,8 @@ export const Editor: React.FC<IJournalProps> = () => {
   const titleRef = React.useRef<HTMLTextAreaElement>(null);
   const { user } = JSON.parse(Cookies.get('user'))
 
+/* The `initializeEditor` function is a callback function that is used to initialize the EditorJS
+instance and set up the editor with the necessary tools and configurations. */
   const initializeEditor = useCallback(async () => {
     const EditorJS = (await import('@editorjs/editorjs')).default;
     const Header = (await import('@editorjs/header')).default;
@@ -90,6 +92,13 @@ export const Editor: React.FC<IJournalProps> = () => {
   const { ref: titleInputRef, ...rest } = register('title');
   const { createJournalMutation } = useJournalEntries();
 
+
+/**
+ * The `onSubmit` function saves the blocks from a ref and creates a journal entry with a title,
+ * content, and user ID.
+ * @param data - The `data` parameter is an object that contains the form data submitted by the user.
+ * It likely includes a `title` property, which represents the title of the journal entry.
+ */
   async function onSubmit(data) {
     const { blocks } = await ref.current.save();
     const payload = {

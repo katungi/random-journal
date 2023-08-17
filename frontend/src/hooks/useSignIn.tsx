@@ -26,6 +26,12 @@ export type ISignIn = UseMutateFunction<User, unknown, {
   token: string;
 }, unknown>
 
+/**
+ * The `useSignIn` function is a custom hook that handles the sign-in process, including making a
+ * sign-in mutation, updating the user data in the query cache, setting user data in local storage, and
+ * navigating to the home page after successful sign-in.
+ * @returns The `signInMutation` function is being returned.
+ */
 export function useSignIn(): ISignIn {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
@@ -50,6 +56,9 @@ export function useSignIn(): ISignIn {
   return signInMutation
 }
 
+/**
+ * The function redirects the user to the login page if they are not authenticated.
+ */
 export function redirectIfNotAuthenticated() {
   const cookie = Cookies.get('token')
   if (!cookie) {

@@ -30,6 +30,12 @@ type IUseSignUp = UseMutateFunction<User, unknown, {
   username: string;
 }, unknown>
 
+/**
+ * The `useSignUp` function is a custom hook that handles the sign-up process, including making a
+ * mutation request to register a new user, handling success and error cases, and updating the query
+ * data and cookies accordingly.
+ * @returns The `signUpMutation` function is being returned.
+ */
 export function useSignUp(): IUseSignUp {
   const queryClient = useQueryClient();
   const navigate = useNavigate();

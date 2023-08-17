@@ -39,6 +39,12 @@ export async function createJournalEntry(payload: any) {
 
 export type IJournal = UseMutateFunction<JournalEntry, unknown, any, unknown>
 
+/**
+ * The `useJournalEntries` function is a custom hook that handles the creation and fetching of journal
+ * entries, and returns the necessary data and functions for managing journal entries in a React
+ * component.
+ * @returns The function `useJournalEntries` returns an object with three properties:
+ */
 export function useJournalEntries() {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
